@@ -1,23 +1,3 @@
-# Rslib project
+# ts-morpheus
 
-## Setup
-
-Install the dependencies:
-
-```bash
-pnpm install
-```
-
-## Get started
-
-Build the library:
-
-```bash
-pnpm build
-```
-
-Build the library in watch mode:
-
-```bash
-pnpm dev
-```
+[![Node.js CI](https://github.com/evg4b/ts-morpheus/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/evg4b/ts-morpheus/actions/workflows/node.js.yml)
