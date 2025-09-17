@@ -17,7 +17,8 @@
     "check": "biome check --write",
     "dev": "rslib build --watch",
     "format": "biome format --write",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "docs": "typedoc --options typedoc.json"
   },
   "peerDependencies": {
     "ts-morph": "^27.0.0"
@@ -30,9 +31,10 @@
     "eslint": "^9.35.0",
     "globals": "^16.3.0",
     "ts-morph": "^27.0.0",
+    "typedoc": "^0.28.13",
+    "typedoc-github-theme": "^0.3.1",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.43.0"
   },
-  "private": false,
   "packageManager": "yarn@4.9.4"
 }

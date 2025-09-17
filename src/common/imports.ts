@@ -2,10 +2,10 @@ import { type ImportDeclaration, type SourceFile } from 'ts-morph';
 
 /**
  * Find import declaration by module name in source file
- * @param sourceFile
- * @param moduleName
+ * @param sourceFile - the source file to search in
+ * @param moduleName - the module name to search for
  */
-export const findImportDeclaration = (sourceFile: SourceFile, moduleName: string): ImportDeclaration | null => {
+export const getImportDeclaration = (sourceFile: SourceFile, moduleName: string): ImportDeclaration | null => {
   return sourceFile.getImportDeclarations()
       .find(declaration => declaration.getModuleSpecifier().getLiteralValue() === moduleName)
     ?? null;
@@ -17,11 +17,12 @@ export const findImportDeclaration = (sourceFile: SourceFile, moduleName: string
  * @param moduleName {string}
  * @throws {Error} if declaration not found
  */
-export const getImportDeclaration = (sourceFile: SourceFile, moduleName: string): ImportDeclaration => {
-  const declaration = findImportDeclaration(sourceFile, moduleName);
+export const getImportDeclarationOrThrow = (sourceFile: SourceFile, moduleName: string): ImportDeclaration => {
+  const declaration = getImportDeclaration(sourceFile, moduleName);
   if (!declaration) {
     throw new Error(`Module ${ moduleName } not found`);
   }
 
   return declaration;
 };
+
