@@ -1,0 +1,18 @@
+// Rstest Snapshot v1
+
+exports[`addImportDeclaration > should add new import declaration 1`] = `
+"import { something } from 'some-module';
+import { newThing } from "new-module";
+    "
+`;
+
+exports[`addImportDeclaration > should add new import declaration s 1`] = `
+"import { something } from 'some-module';
+    "
+`;
+
+exports[`addImportDeclaration > should add new import declaration s 2`] = `
+"import { something } from 'some-module';
+      import demoModule, { something } from 'demo-module';
+    "
+`;
