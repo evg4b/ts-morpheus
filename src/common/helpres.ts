@@ -7,3 +7,7 @@ export const toString = (value: StringLiteral | Identifier): string => {
 
   return value.getText();
 };
+
+export const throws = (message: string): never => {
+  throw new Error(message);
+};
