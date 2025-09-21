@@ -1,7 +1,27 @@
 {
   "name": "ts-morpheus",
   "version": "0.0.2",
+  "description": "A TypeScript library that provides utilities for working with Angular code using ts-morph",
   "type": "module",
+  "keywords": [
+    "typescript",
+    "angular",
+    "ts-morph",
+    "ast",
+    "code-analysis",
+    "refactoring"
+  ],
+  "author": "Evgeny Abramoich <evg.abramovitch@gmail.com>",
+  "readme": "README.md",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evg4b/ts-morpheus.git"
+  },
+  "homepage": "https://evg4b.github.io/ts-morpheus/",
+  "bugs": {
+    "url": "https://github.com/evg4b/ts-morpheus/issues"
+  },
   "exports": {
     "./common": {
       "types": "./dist/common.d.ts",

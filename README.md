@@ -25,9 +25,18 @@ yarn add ts-morpheus
 
 - `ts-morph`: ^27.0.0
 
+## Modules
+
+The library is organized into two main modules:
+
+- **`ts-morpheus/angular`** - Angular-specific utilities for components, directives, pipes, modules, and services
+- **`ts-morpheus/common`** - Common utilities for import management and general TypeScript manipulation
+
 ## Usage
 
 ### Angular Components
+
+The `ts-morpheus/angular` module provides utilities for working with Angular-specific constructs:
 
 ```typescript
 import { isAngularComponent, getAngularComponentDecorator } from 'ts-morpheus/angular';
@@ -48,8 +57,10 @@ const decorator = getAngularComponentDecorator(classDeclaration);
 
 ### Import Management
 
+The `ts-morpheus/common` module provides utilities for managing TypeScript imports:
+
 ```typescript
-import { addImportDeclaration, removeNamedImports } from 'ts-morpheus';
+import { addImportDeclaration, removeNamedImports } from 'ts-morpheus/common';
 import { Project } from 'ts-morph';
 
 const project = new Project();
