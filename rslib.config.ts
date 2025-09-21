@@ -1,8 +1,24 @@
-import { defineConfig } from '@rslib/core';
+import { type SourceConfig } from '@rsbuild/core';
+import { defineConfig, type Format, type LibConfig } from '@rslib/core';
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+const source: SourceConfig = {
+  entry: readdirSync(join(import.meta.dirname, 'src'), { withFileTypes: false, encoding: 'utf-8' })
+    .reduce((entries, name) => ({
+      ...entries,
+      [name]: join('./src', name, 'index.ts'),
+    }), {}),
+};
 
 export default defineConfig({
-  lib: [
-    { format: 'esm', syntax: ['node 20'], dts: true },
-    { format: 'cjs', syntax: ['node 20'], dts: true },
-  ],
+  lib: (['esm', 'cjs'] satisfies Format[])
+    .map<LibConfig>(format => ({
+      format,
+      source,
+      syntax: ['node 20'],
+      dts: {
+        bundle: true,
+      },
+    })),
 });

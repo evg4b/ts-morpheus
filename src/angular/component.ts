@@ -2,7 +2,9 @@ import type { ClassDeclaration, Decorator } from 'ts-morph';
 
 /**
  * Get the Angular component or directive decorator from a class declaration or null if not found.
- * @param classDeclaration
+ *
+ * @see {ClassDeclaration}
+ * @see {Decorator}
  */
 export const getAngularComponentDecorator = (
   classDeclaration: ClassDeclaration,
@@ -12,7 +14,9 @@ export const getAngularComponentDecorator = (
 
 /**
  * Get the Angular component decorator from a class declaration or throw if not found.
- * @param classDeclaration
+ *
+ * @see {ClassDeclaration}
+ * @see {Decorator}
  */
 export const getAngularComponentDecoratorOrThrow = (
   classDeclaration: ClassDeclaration,
@@ -22,7 +26,9 @@ export const getAngularComponentDecoratorOrThrow = (
 
 /**
  * Check if the class is an Angular component
- * @param classDeclaration
+ *
+ * @see {ClassDeclaration}
+ * @see {Decorator}
  */
 export const isAngularComponent = (
   classDeclaration: ClassDeclaration,

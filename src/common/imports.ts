@@ -38,7 +38,16 @@ export const getImportDeclarationOrThrow = (
   return declaration;
 };
 
-interface ImportDescriptor {
+/**
+ * Descriptor for an import statement
+ * @example
+ * {
+ *    namedImports: ['Component', 'OnInit'],
+ *    module: '@angular/core'
+ * }
+ *
+ */
+export interface ImportDescriptor {
   namedImports: string[];
   module: string;
 }

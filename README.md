@@ -30,7 +30,7 @@ yarn add ts-morpheus
 ### Angular Components
 
 ```typescript
-import { isAngularComponent, getAngularComponentDecorator } from 'ts-morpheus';
+import { isAngularComponent, getAngularComponentDecorator } from 'ts-morpheus/angular';
 import { Project } from 'ts-morph';
 
 const project = new Project();
@@ -111,6 +111,10 @@ yarn test
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## API Reference
+
+Full API documentation is available at [https://evg4b.github.io/ts-morpheus/](https://evg4b.github.io/ts-morpheus/)
 
 ## Related Projects
 
