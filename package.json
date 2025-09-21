@@ -1,6 +1,6 @@
 {
   "name": "ts-morpheus",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A TypeScript library that provides utilities for working with Angular code using ts-morph",
   "type": "module",
   "keywords": [
