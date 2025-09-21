@@ -1,15 +1,23 @@
-import { type ImportDeclaration, type SourceFile } from 'ts-morph';
-import { toString } from './helpres.ts';
+import type { ImportDeclaration, SourceFile } from 'ts-morph';
+import { asString } from './helpres';
 
 /**
  * Find import declaration by module name in source file
  * @param sourceFile - the source file to search in
  * @param moduleName - the module name to search for
  */
-export const getImportDeclaration = (sourceFile: SourceFile, moduleName: string): ImportDeclaration | null => {
-  return sourceFile.getImportDeclarations()
-      .find(declaration => declaration.getModuleSpecifier().getLiteralValue() === moduleName)
-    ?? null;
+export const getImportDeclaration = (
+  sourceFile: SourceFile,
+  moduleName: string,
+): ImportDeclaration | null => {
+  return (
+    sourceFile
+      .getImportDeclarations()
+      .find(
+        (declaration) =>
+          declaration.getModuleSpecifier().getLiteralValue() === moduleName,
+      ) ?? null
+  );
 };
 
 /**
@@ -18,7 +26,10 @@ export const getImportDeclaration = (sourceFile: SourceFile, moduleName: string)
  * @param moduleName {string}
  * @throws {Error} if declaration not found
  */
-export const getImportDeclarationOrThrow = (sourceFile: SourceFile, moduleName: string): ImportDeclaration => {
+export const getImportDeclarationOrThrow = (
+  sourceFile: SourceFile,
+  moduleName: string,
+): ImportDeclaration => {
   const declaration = getImportDeclaration(sourceFile, moduleName);
   if (!declaration) {
     throw new Error(`Module ${ moduleName } not found`);
@@ -32,7 +43,10 @@ interface ImportDescriptor {
   module: string;
 }
 
-export const addImportDeclaration = (sourceFile: SourceFile, newImport: ImportDescriptor): ImportDeclaration => {
+export const addImportDeclaration = (
+  sourceFile: SourceFile,
+  newImport: ImportDescriptor,
+): ImportDeclaration => {
   const { namedImports, module: moduleName } = newImport;
   const existingDeclaration = getImportDeclaration(sourceFile, moduleName);
 
@@ -43,8 +57,11 @@ export const addImportDeclaration = (sourceFile: SourceFile, newImport: ImportDe
     });
   }
 
-  const existing = existingDeclaration.getNamedImports()
-    .map((namedImportDeclaration) => toString(namedImportDeclaration.getNameNode()));
+  const existing = existingDeclaration
+    .getNamedImports()
+    .map((namedImportDeclaration) =>
+      asString(namedImportDeclaration.getNameNode()),
+    );
 
   for (const name of namedImports) {
     if (!existing.includes(name)) {
@@ -61,18 +78,21 @@ export const addImportDeclaration = (sourceFile: SourceFile, newImport: ImportDe
  * @param moduleName
  * @param namedImports
  */
-export const removeNamedImports = (sourceFile: SourceFile, moduleName: string, namedImports: string[]): void => {
+export const removeNamedImports = (
+  sourceFile: SourceFile,
+  moduleName: string,
+  namedImports: string[],
+): void => {
   const declaration = getImportDeclaration(sourceFile, moduleName);
   if (!declaration) {
     return;
   }
 
-  declaration.getNamedImports()
-    .forEach((namedImportDeclaration) => {
-      if (namedImports.includes(toString(namedImportDeclaration.getNameNode()))) {
-        namedImportDeclaration.remove();
-      }
-    });
+  declaration.getNamedImports().forEach((namedImportDeclaration) => {
+    if (namedImports.includes(asString(namedImportDeclaration.getNameNode()))) {
+      namedImportDeclaration.remove();
+    }
+  });
 
   if (declaration.getNamedImports().length === 0) {
     declaration.remove();

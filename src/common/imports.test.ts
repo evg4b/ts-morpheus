@@ -1,6 +1,11 @@
 import { beforeAll, beforeEach, describe, expect, test } from '@rstest/core';
 import { ImportDeclaration, Project, type SourceFile } from 'ts-morph';
-import { addImportDeclaration, getImportDeclaration, getImportDeclarationOrThrow, removeNamedImports } from './imports';
+import {
+  addImportDeclaration,
+  getImportDeclaration,
+  getImportDeclarationOrThrow,
+  removeNamedImports,
+} from './imports';
 
 describe('getImportDeclaration', () => {
   let project: Project;
@@ -8,10 +13,13 @@ describe('getImportDeclaration', () => {
 
   beforeAll(() => {
     project = new Project({ useInMemoryFileSystem: true });
-    sourceFile = project.createSourceFile('test.ts', `
+    sourceFile = project.createSourceFile(
+      'test.ts',
+      `
       import { something } from 'some-module';
       import { anotherThing } from 'another-module';
-    `);
+    `,
+    );
   });
 
   describe('import exists', () => {
@@ -30,7 +38,9 @@ describe('getImportDeclaration', () => {
     });
 
     test('declaration should have correct module specifier', () => {
-      expect(declaration?.getModuleSpecifier().getLiteralValue()).toBe('some-module');
+      expect(declaration?.getModuleSpecifier().getLiteralValue()).toBe(
+        'some-module',
+      );
     });
   });
 
@@ -45,22 +55,28 @@ describe('getImportDeclarationOrThrow', () => {
 
   beforeAll(() => {
     project = new Project({ useInMemoryFileSystem: true });
-    sourceFile = project.createSourceFile('test.ts', `
+    sourceFile = project.createSourceFile(
+      'test.ts',
+      `
       import { something } from 'some-module';
       import { anotherThing } from 'another-module';
-    `);
+    `,
+    );
   });
 
   test('import exists declaration should be defined', () => {
     const declaration = getImportDeclarationOrThrow(sourceFile, 'some-module');
     expect(declaration).toBeDefined();
     expect(declaration).toBeInstanceOf(ImportDeclaration);
-    expect(declaration?.getModuleSpecifier().getLiteralValue()).toBe('some-module');
+    expect(declaration?.getModuleSpecifier().getLiteralValue()).toBe(
+      'some-module',
+    );
   });
 
   test('import does not exist should throw error', () => {
-    expect(() => getImportDeclarationOrThrow(sourceFile, 'non-existent-module'))
-      .toThrow('Module non-existent-module not found');
+    expect(() =>
+      getImportDeclarationOrThrow(sourceFile, 'non-existent-module'),
+    ).toThrow('Module non-existent-module not found');
   });
 });
 
@@ -70,10 +86,13 @@ describe.skip('addImportDeclaration', () => {
 
   beforeEach(() => {
     project = new Project({ useInMemoryFileSystem: true });
-    sourceFile = project.createSourceFile('test.ts', `
+    sourceFile = project.createSourceFile(
+      'test.ts',
+      `
       import { something } from 'some-module';
       import demoModule from 'demo-module';
-    `);
+    `,
+    );
   });
 
   test('should add new import declaration', () => {
@@ -113,16 +132,19 @@ describe('removeNamedImports', () => {
 
   beforeEach(() => {
     project = new Project({ useInMemoryFileSystem: true });
-    sourceFile = project.createSourceFile('test.ts', `
+    sourceFile = project.createSourceFile(
+      'test.ts',
+      `
       import { something, somethingOther } from 'some-module';
       import demoModule from 'demo-module';
-    `);
+    `,
+    );
   });
 
   test('should add new import declaration s', () => {
     removeNamedImports(sourceFile, 'some-module', ['something']);
 
-    const imports = sourceFile.getImportDeclarations()
+    const imports = sourceFile.getImportDeclarations();
     expect(imports.length).toBe(2);
 
     expect(imports[0].getNamedImports().length).toBe(1);
