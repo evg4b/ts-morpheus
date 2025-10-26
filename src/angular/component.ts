@@ -1,4 +1,9 @@
-import type { ClassDeclaration, Decorator } from 'ts-morph';
+import {
+  type ClassDeclaration,
+  type Decorator,
+  Project,
+  type SourceFile,
+} from 'ts-morph';
 
 /**
  * Get the Angular component or directive decorator from a class declaration or null if not found.
@@ -34,4 +39,31 @@ export const isAngularComponent = (
   classDeclaration: ClassDeclaration,
 ): boolean => {
   return getAngularComponentDecorator(classDeclaration) !== null;
+};
+
+export type ClassFilterPredicate = (c: ClassDeclaration) => boolean;
+
+/**
+ * Get all Angular components from a project or source file, optionally filtered by a predicate.
+ *
+ * @see {Project}
+ * @see {SourceFile}
+ * @see {ClassDeclaration}
+ * @see {ClassFilterPredicate}
+ */
+export const getAllComponents = (
+  source: Project | SourceFile,
+  predicate?: ClassFilterPredicate,
+): ClassDeclaration[] => {
+  const files = source instanceof Project ? source.getSourceFiles() : [source];
+
+  return files.flatMap((file) =>
+    file
+      .getClasses()
+      .filter(
+        (classDeclaration) =>
+          isAngularComponent(classDeclaration) &&
+          (predicate?.(classDeclaration) ?? true),
+      ),
+  );
 };

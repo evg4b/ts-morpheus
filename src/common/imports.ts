@@ -32,7 +32,7 @@ export const getImportDeclarationOrThrow = (
 ): ImportDeclaration => {
   const declaration = getImportDeclaration(sourceFile, moduleName);
   if (!declaration) {
-    throw new Error(`Module ${ moduleName } not found`);
+    throw new Error(`Module ${moduleName} not found`);
   }
 
   return declaration;
